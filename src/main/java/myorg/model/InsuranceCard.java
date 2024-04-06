@@ -13,15 +13,15 @@ public class InsuranceCard {
     private String cardNumber;
     private String cardHolderId;
     private String policyOwnerId;
-    private Date expirationDate;
+    private final Date expirationDate;
 
     /**
-     * Constructor for creating an instance of InsuranceCard.
+     * Constructs a new `InsuranceCard` instance.
      *
-     * @param cardNumber     The card's number.
-     * @param cardHolderId   The ID of the customer who holds this card.
-     * @param policyOwnerId  The ID of the policy owner.
-     * @param expirationDate The expiration date of the card.
+     * @param cardNumber     Unique identifier for the card itself.
+     * @param cardHolderId   ID of the customer who carries this card.
+     * @param policyOwnerId  ID of the person who owns the insurance policy.
+     * @param expirationDate The date when the card and potentially the coverage expires.
      */
     public InsuranceCard(String cardNumber, String cardHolderId, String policyOwnerId, Date expirationDate) {
         this.cardNumber = cardNumber;
@@ -30,13 +30,11 @@ public class InsuranceCard {
         this.expirationDate = expirationDate;
     }
 
-    // Getters
+    // The Getters
     public String getCardNumber() { return cardNumber; }
-    public String getCardHolderId() { return cardHolderId; }
-    public String getPolicyOwnerId() { return policyOwnerId; }
     public Date getExpirationDate() { return expirationDate; }
 
-    // Setters
+    // The Setters
     public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
@@ -49,10 +47,11 @@ public class InsuranceCard {
         this.policyOwnerId = policyOwnerId;
     }
 
-    public void setExpirationDate(Date expirationDate) {
-        this.expirationDate = expirationDate;
-    }
-
+    /**
+     * Creates a human-readable string representation of the `InsuranceCard`.
+     *
+     * @return A string containing details about the card.
+     */
     @Override
     public String toString() {
         return "InsuranceCard{" +

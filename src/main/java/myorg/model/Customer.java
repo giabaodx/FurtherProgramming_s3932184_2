@@ -15,7 +15,7 @@ public abstract class Customer {
     protected InsuranceCard insuranceCard;
 
     /**
-     * Constructor to initialize a Customer object.
+     * Constructor to create a new customer instance
      *
      * @param id           The customer's ID.
      * @param fullName     The customer's full name.
@@ -27,20 +27,9 @@ public abstract class Customer {
         this.insuranceCardId = insuranceCardId;
     }
 
-    // Getters and Setters
+    // Getters
     public String getId() {
         return id;
-    }
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public void setInsuranceCard(InsuranceCard insuranceCard) {
-        this.insuranceCard = insuranceCard;
     }
 
     public String getFullName() {
@@ -54,12 +43,26 @@ public abstract class Customer {
         return insuranceCardId;
     }
 
+    // Setters
+
     public void setInsuranceCardId(String insuranceCardId) {
         this.insuranceCardId = insuranceCardId;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public void setInsuranceCard(InsuranceCard insuranceCard) {
+        this.insuranceCard = insuranceCard;
+    }
+
     /**
-     * Method to return a string representation of the customer.
+     * Provides a string representation of the customer details
      *
      * @return A string representation of the customer.
      */

@@ -11,6 +11,7 @@ import java.util.List;
  * Represents an insurance claim.
  */
 public class Claim {
+    // Define variables
     private String id;
     private Date claimDate;
     private Customer insuredPerson;
