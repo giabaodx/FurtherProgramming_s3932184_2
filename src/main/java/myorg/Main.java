@@ -74,14 +74,14 @@ public class Main {
     //The UI when starting the program
     private static void showMenu() {
         System.out.println("\n--- Main Menu ---");
-        System.out.println("1 - List All Customers");
-        System.out.println("2 - List All Claims");
-        System.out.println("3 - Enter Claims ID");
+        System.out.println("1 - View All Customers");
+        System.out.println("2 - View All Claims");
+        System.out.println("3 - Input Claims ID");
         System.out.println("4 - Add Claims");
-        System.out.println("5 - Update A Claim");
-        System.out.println("6 - Delete A Claim");
-        System.out.println("0 - Exit and Save Changes");
-        System.out.print("Enter your choice: ");
+        System.out.println("5 - Modify a Claim");
+        System.out.println("6 - Delete a Claim");
+        System.out.println("0 - Exit!");
+        System.out.print("Enter a number to choose: ");
     }
 
     //Add listAllCustomers method
@@ -89,7 +89,7 @@ public class Main {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         if (customers.isEmpty()) {
-            System.out.println("No customers found.");
+            System.out.println("I'm sorry! No customer has been found.");
         } else {
             for (Customer customer : customers) {
                 System.out.println("PolicyHolder: { ID: " + customer.getId() + ", Name: " + customer.getFullName() + " }");
@@ -108,7 +108,7 @@ public class Main {
     private static void listAllClaims() {
         List<Claim> allClaims = claimManager.getAll();
         if (allClaims.isEmpty()) {
-            System.out.println("No claims found.");
+            System.out.println("I'm sorry! No claim has been found.");
         } else {
             allClaims.forEach(claim ->
                     System.out.printf("Claim ID: %s, Claim Date: %s, Amount: %.2f, Status: %s%n",
@@ -119,50 +119,50 @@ public class Main {
     //Add showClaimDetails method
     private static void showClaimDetails() {
         Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Claim ID: ");
+        System.out.print("Enter a Claim ID: ");
         String claimId = scanner.nextLine();
         Claim claim = claimManager.getOne(claimId);
         if (claim != null) {
             System.out.println("Claim Details: " + claim);
         } else {
-            System.out.println("Claim not found.");
+            System.out.println("I'm sorry! The claim cannot be found.");
         }
     }
     //Add addNewClaim method
     private static void addNewClaim() {
         try {
-            System.out.println("Enter Claim ID:");
+            System.out.println("Input the Claim ID: ");
             String id = scanner.nextLine();
 
-            System.out.println("Enter Claim Date (yyyy-MM-dd):");
+            System.out.println("Input the Claim Date (yyyy-MM-dd): ");
             Date claimDate = sdf.parse(scanner.nextLine());
 
-            System.out.println("Enter Insured Person ID:");
+            System.out.println("Input the Insured Person ID: ");
             String insuredPersonId = scanner.nextLine();
 
-            System.out.println("Enter Card Number:");
+            System.out.println("Input the Card Number: ");
             String cardNumber = scanner.nextLine();
 
-            System.out.println("Enter Exam Date (yyyy-MM-dd):");
+            System.out.println("Input the Exam Date (yyyy-MM-dd): ");
             Date examDate = sdf.parse(scanner.nextLine());
 
-            System.out.println("Enter Document Names (separated by comma):");
+            System.out.println("Input Document Names (separated by comma): ");
             String docs = scanner.nextLine();
             List<String> documents = List.of(docs.split(","));
 
-            System.out.println("Enter Claim Amount:");
+            System.out.println("Input the Claim Amount: ");
             double claimAmount = Double.parseDouble(scanner.nextLine());
 
-            System.out.println("Enter Status:");
+            System.out.println("What is the status? ");
             String status = scanner.nextLine();
 
-            System.out.println("Enter Receiver Banking Info:");
+            System.out.println("Input Receiver Banking Info: ");
             String receiverBankingInfo = scanner.nextLine();
 
             Claim claim = new Claim(id, claimDate, insuredPersonId, cardNumber, examDate, documents, claimAmount, status, receiverBankingInfo);
             claimManager.addClaim(claim);
 
-            System.out.println("Claim added successfully.");
+            System.out.println("The claim has been added successfully.");
         } catch (ParseException e) {
             System.out.println("Error parsing the date. Please try again.");
         } catch (NumberFormatException e) {
@@ -175,31 +175,31 @@ public class Main {
             System.out.print("Enter the ID of the claim to update: ");
             String claimId = scanner.nextLine();
 
-            System.out.println("Enter new claim details:");
+            System.out.println("Enter new claim details: ");
 
-            System.out.println("Enter Claim Date (yyyy-MM-dd):");
+            System.out.println("Enter Claim Date (yyyy-MM-dd): ");
             Date claimDate = sdf.parse(scanner.nextLine());
 
-            System.out.println("Enter Insured Person ID:");
+            System.out.println("Enter Insured Person ID: ");
             String insuredPersonId = scanner.nextLine();
 
-            System.out.println("Enter Card Number:");
+            System.out.println("Enter Card Number: ");
             String cardNumber = scanner.nextLine();
 
-            System.out.println("Enter Exam Date (yyyy-MM-dd):");
+            System.out.println("Enter Exam Date (yyyy-MM-dd): ");
             Date examDate = sdf.parse(scanner.nextLine());
 
-            System.out.println("Enter Document Names (separated by comma):");
+            System.out.println("Enter Document Names (separated by comma): ");
             String docs = scanner.nextLine();
             List<String> documents = List.of(docs.split(","));
 
-            System.out.println("Enter Claim Amount:");
+            System.out.println("Enter Claim Amount: ");
             double claimAmount = Double.parseDouble(scanner.nextLine());
 
-            System.out.println("Enter Status:");
+            System.out.println("Enter Status: ");
             String status = scanner.nextLine();
 
-            System.out.println("Enter Receiver Banking Info:");
+            System.out.println("Enter Receiver Banking Info: ");
             String receiverBankingInfo = scanner.nextLine();
 
             Claim updatedClaim = new Claim(claimId, claimDate, insuredPersonId, cardNumber, examDate, documents, claimAmount, status, receiverBankingInfo);
@@ -228,12 +228,12 @@ public class Main {
     //Save and update data
     private static void saveDataAndExit() {
         try {
-            System.out.println("Saving data...");
+            System.out.println("Saving... Please wait.");
             FileManager.writeClaims(claimManager.getAll(), CLAIMS_FILE_PATH);
-            System.out.println("Data saved successfully.");
+            System.out.println("Data is saved successfully. Good bye!");
             System.exit(0);
         } catch (IOException e) {
-            System.err.println("Failed to save data: " + e.getMessage());
+            System.err.println("Oops! Failed to save data: " + e.getMessage());
             e.printStackTrace();
         }
     }
