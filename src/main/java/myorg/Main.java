@@ -34,7 +34,6 @@ public class Main {
             associateInsuranceCardsWithCustomers();
 
             System.out.println("Insurance Claims Management System Initialized.");
-
             while (true) {
                 showMenu();
                 int choice = scanner.nextInt();
