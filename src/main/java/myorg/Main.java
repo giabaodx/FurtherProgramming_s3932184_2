@@ -14,49 +14,19 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 public class Main {
+    // Define file paths for data storage
     private static final String CUSTOMERS_FILE_PATH = "src/main/resources/customer.txt";
     private static final String INSURANCE_CARDS_FILE_PATH = "src/main/resources/insuranceCard.txt";
     private static final String CLAIMS_FILE_PATH = "src/main/resources/claim.txt";
+
+    // Create a simple date formatter for parsing and formatting dates
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    // Create an instance of the claim manager for interacting with claims
     private static final ClaimProcessManagerImpl claimManager = new ClaimProcessManagerImpl();
     private static List<Customer> customers;
     private static List<InsuranceCard> insuranceCards;
     private static final Scanner scanner = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        try {
-            customers = FileManager.readCustomers(CUSTOMERS_FILE_PATH);
-            insuranceCards = FileManager.readInsuranceCards(INSURANCE_CARDS_FILE_PATH);
-            List<Claim> claims = FileManager.readClaims(CLAIMS_FILE_PATH);
-            claims.forEach(claimManager::addClaim);
-
-            associateInsuranceCardsWithCustomers();
-
-            System.out.println("Insurance Claims Management System Initialized.");
-            while (true) {
-                showMenu();
-                int choice = scanner.nextInt();
-                scanner.nextLine();
-                switch (choice) {
-                    case 1 -> listAllCustomers();
-                    case 2 -> listAllClaims();
-                    case 3 -> showClaimDetails();
-                    case 4 -> addNewClaim();
-                    case 5 -> updateClaim();
-                    case 6 -> deleteClaim();
-                    case 0 -> {
-                        saveDataAndExit();
-                        return; // exit main program running
-                    }
-                    default -> System.out.println("Invalid option. Please try again.");
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error initializing system: " + e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
     private static void associateInsuranceCardsWithCustomers() {
         Map<String, InsuranceCard> cardMap = new HashMap<>();
@@ -233,6 +203,40 @@ public class Main {
             System.exit(0);
         } catch (IOException e) {
             System.err.println("Oops! Failed to save data: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public static void main(String[] args) {
+        try {
+            customers = FileManager.readCustomers(CUSTOMERS_FILE_PATH);
+            insuranceCards = FileManager.readInsuranceCards(INSURANCE_CARDS_FILE_PATH);
+            List<Claim> claims = FileManager.readClaims(CLAIMS_FILE_PATH);
+            claims.forEach(claimManager::addClaim);
+
+            associateInsuranceCardsWithCustomers();
+
+            System.out.println("Insurance Claims Management System Initialized.");
+            while (true) {
+                showMenu();
+                int choice = scanner.nextInt();
+                scanner.nextLine();
+                switch (choice) {
+                    case 1 -> listAllCustomers();
+                    case 2 -> listAllClaims();
+                    case 3 -> showClaimDetails();
+                    case 4 -> addNewClaim();
+                    case 5 -> updateClaim();
+                    case 6 -> deleteClaim();
+                    case 0 -> {
+                        saveDataAndExit();
+                        return; // exit main program running
+                    }
+                    default -> System.out.println("Invalid option. Please try again.");
+                }
+            }
+        } catch (Exception e) {
+            System.err.println("Error initializing system: " + e.getMessage());
             e.printStackTrace();
         }
     }
